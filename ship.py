@@ -1,3 +1,22 @@
+
+import numpy as np
+import pygame
+from general import *
+from constants import *
+from image import *
+from bullet import *
+
+
+
+class Steering:
+    def __init__(self, buttons):
+        self.left = buttons[0]
+        self.right = buttons[1]
+        self.rocket = buttons[2]
+        self.shoot = buttons[3]
+
+
+
 class Ship:
     def __init__(self, coords, paths, steering):
         self.__paths = paths
@@ -10,11 +29,7 @@ class Ship:
         self.__lastrocket = pygame.time.get_ticks()
         self.__lastbullet = pygame.time.get_ticks()
 
-    '''
-    def __normSpd(self):
-        if (vec_len(self.__spd) >=  MAX_SPD):
-            self.__spd = self.__spd / vec_len(self.__spd) * MAX_SPD
-'''
+        
     def changespd(self):
         '''this function is for changing ship's velocity according to player's actions'''
         keystatus = pygame.key.get_pressed()
@@ -30,6 +45,7 @@ class Ship:
         self.__spd += self.__force / self.__MASS * TIME_PERIOD'''
         '''self.__normSpd()'''
 
+        
     def move(self, scale):
         self.__coords += self.__spd * TIME_PERIOD
         self.__image.draw(-self.__angle - 90, self.__coords, scale)
@@ -68,3 +84,6 @@ class Ship:
 
     def get_steer(self):
         return self.__steer
+    
+    def get_dead(self):
+        return self.__dead
